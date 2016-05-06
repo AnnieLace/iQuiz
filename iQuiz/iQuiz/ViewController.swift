@@ -42,9 +42,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell
     }
     
-    /*func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-    }*/
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +59,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Dispose of any resources that can be recreated.
     }
 
-
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        if(segue.identifier == "quizSegue")
+        {
+            let questionViewController = segue.destinationViewController as! QuestionViewController
+            questionViewController.quizIndex = (categoriesTableView.indexPathForSelectedRow?.row)!
+            questionViewController.questionIndex = 0
+        }
+    }
 }
 
