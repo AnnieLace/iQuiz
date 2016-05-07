@@ -15,9 +15,10 @@ class QuestionViewController : UIViewController, UIPickerViewDataSource, UIPicke
     let data = DataModel()
     var quizIndex : Int = -1
     var questionIndex: Int = -1
-    var answerIndex : Int = 1
+    var answerIndex : Int = 0
     var pickerData : [String] = []
     @IBOutlet weak var answerPicker: UIPickerView!
+    var correctAnswers : Int = 0
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
@@ -38,7 +39,6 @@ class QuestionViewController : UIViewController, UIPickerViewDataSource, UIPicke
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do view setup here.
         
         if(quizIndex > -1)
         {
@@ -54,5 +54,17 @@ class QuestionViewController : UIViewController, UIPickerViewDataSource, UIPicke
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        if(segue.identifier == "showAnswerSegue")
+        {
+            let answerViewController = segue.destinationViewController as! AnswerViewController
+            answerViewController.quizIndex = quizIndex
+            answerViewController.questionIndex = questionIndex
+            answerViewController.answerIndex = answerIndex
+            answerViewController.correctAnswers = correctAnswers
+        }
     }
 }

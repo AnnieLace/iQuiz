@@ -45,6 +45,8 @@ class DataModel
     {
         var score: Int = 0
         var questionsAttempted: Int = 0
+        //var currQuiz : Int = -1
+        //var currQuestion : Int = -1
         
         init(score: Int, questionsAttempted: Int)
         {
@@ -62,6 +64,16 @@ class DataModel
         {
             questionsAttempted += 1
         }
+        
+       /* func setQuiz(quizNum : Int)
+        {
+            self.currQuiz = quizNum
+        }
+        
+        func setQuestion(questionNum : Int)
+        {
+            self.currQuestion = questionNum
+        }*/
     }
     
     /*let scienceAnswers : [String] = ["One of the four classical elements", "A magical reaction given to us by God","A band that hasn't yet been discovered", "Fire! Fire! Fire! heh-heh"]
