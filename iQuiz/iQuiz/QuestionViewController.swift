@@ -12,7 +12,7 @@ class QuestionViewController : UIViewController, UIPickerViewDataSource, UIPicke
 {
     @IBOutlet weak var QuizNameLable: UILabel!
     @IBOutlet weak var questionText: UILabel!
-    let data = DataModel()
+    var data : DataModel? = nil
     var quizIndex : Int = -1
     var questionIndex: Int = -1
     var answerIndex : Int = 0
@@ -42,9 +42,9 @@ class QuestionViewController : UIViewController, UIPickerViewDataSource, UIPicke
         
         if(quizIndex > -1)
         {
-            QuizNameLable.text = data.categories[quizIndex].title
-            questionText.text = data.categories[quizIndex].questions[questionIndex].text
-            pickerData = data.categories[quizIndex].questions[questionIndex].answers
+            QuizNameLable.text = data!.quizCells[quizIndex].title
+            questionText.text = data!.quizCells[quizIndex].questions[questionIndex].text
+            pickerData = data!.quizCells[quizIndex].questions[questionIndex].answers
         }
         
         self.answerPicker.dataSource = self
@@ -65,6 +65,12 @@ class QuestionViewController : UIViewController, UIPickerViewDataSource, UIPicke
             answerViewController.questionIndex = questionIndex
             answerViewController.answerIndex = answerIndex
             answerViewController.correctAnswers = correctAnswers
+            answerViewController.data = data!
+        }
+        else if(segue.identifier == "backSegue")
+        {
+            let viewController = segue.destinationViewController as! ViewController
+            viewController.data = data!
         }
     }
 }

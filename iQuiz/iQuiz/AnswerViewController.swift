@@ -22,14 +22,14 @@ class AnswerViewController : UIViewController
     var answerIndex : Int = -1
     var correctAnswers : Int = 0
     
-    let data = DataModel();
+    var data : DataModel? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let correctAnswer : Int = data.categories[quizIndex].questions[questionIndex].correctAnswer - 1
-        questionText.text = data.categories[quizIndex].questions[questionIndex].text
-        answerText.text = "\(data.categories[quizIndex].questions[questionIndex].answers[correctAnswer])"
+        let correctAnswer : Int = data!.quizCells[quizIndex].questions[questionIndex].correctAnswer - 1
+        questionText.text = data!.quizCells[quizIndex].questions[questionIndex].text
+        answerText.text = "\(data!.quizCells[quizIndex].questions[questionIndex].answers[correctAnswer])"
         
         if(answerIndex == correctAnswer)
         {
@@ -41,7 +41,7 @@ class AnswerViewController : UIViewController
             resultText.text = "You answered incorrectly."
         }
         
-        if(questionIndex + 1 >= data.categories[quizIndex].questions.count)
+        if(questionIndex + 1 >= data!.quizCells[quizIndex].questions.count)
         {
             nextQuestion.hidden = true
         }
@@ -64,12 +64,19 @@ class AnswerViewController : UIViewController
             questionViewController.quizIndex = quizIndex
             questionViewController.questionIndex = (questionIndex + 1)
             questionViewController.correctAnswers = correctAnswers
+            questionViewController.data = data!
         }
         else if(segue.identifier == "resultSegue")
         {
             let resultViewController = segue.destinationViewController as! ResultViewController
             resultViewController.correctAnswers = correctAnswers
             resultViewController.quizIndex = quizIndex
+            resultViewController.data = data!
+        }
+        else if(segue.identifier == "backSegue")
+        {
+            let viewController = segue.destinationViewController as! ViewController
+            viewController.data = data!
         }
     }
 }

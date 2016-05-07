@@ -20,13 +20,13 @@ class ResultViewController : UIViewController
     var correctAnswers : Int = 0
     var quizIndex : Int = -1
     
-    let data = DataModel()
+    var data : DataModel? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let numQuestions : Int = data.categories[quizIndex].questions.count
-        quizName.text = data.categories[quizIndex].title
+        let numQuestions : Int = data!.quizCells[quizIndex].questions.count
+        quizName.text = data!.quizCells[quizIndex].title
         scoreText.text = "You scored: \(correctAnswers) out of \(numQuestions)"
         let correctPercent : Double = ((Double)(correctAnswers) / (Double)(numQuestions)) * 100.0
         switch(correctPercent)
@@ -42,5 +42,14 @@ class ResultViewController : UIViewController
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        if(segue.identifier == "backSegue")
+        {
+            let viewController = segue.destinationViewController as! ViewController
+            viewController.data = data!
+        }
     }
 }

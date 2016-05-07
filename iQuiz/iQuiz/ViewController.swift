@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var categoriesTableView: UITableView!
-    let data = DataModel()
+    var data : DataModel? = nil
     
     
     @IBAction func settingsClicked(sender: UIBarButtonItem) {
@@ -27,12 +27,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section : Int) -> Int {
-        return data.categories.count
+        return data!.quizCells.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! TableViewCell
-        let category = data.categories[indexPath.row]
+        let category = data!.quizCells[indexPath.row]
         let image = UIImage(named : category.iconFile)
         
         cell.icon.image = image
@@ -48,9 +48,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        if(self.data == nil)
+        {
+            self.data = DataModel()
+        }
+        
+        if(self.data!.quizCells.count == 0)
+        {
+            data!.populateQuizData("http://tednewardsandbox.site44.com/questions.json") {(quiz, error) -> () in
+                if(quiz != nil)
+                {
+                    self.data!.quizCells = quiz!
+                    self.categoriesTableView!.reloadData()
+                }
+            }
+        }
         categoriesTableView.delegate = self
         categoriesTableView.dataSource = self
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,6 +81,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let questionViewController = segue.destinationViewController as! QuestionViewController
             questionViewController.quizIndex = (categoriesTableView.indexPathForSelectedRow?.row)!
             questionViewController.questionIndex = 0
+            questionViewController.data = data
         }
     }
 }

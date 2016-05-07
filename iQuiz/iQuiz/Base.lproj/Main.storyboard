@@ -163,7 +163,7 @@
                                 <items>
                                     <barButtonItem title="Back to Quizzes" id="caO-Cc-D0i">
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="g6u-c0-CPD"/>
+                                            <segue destination="BYZ-38-t0r" kind="show" identifier="backSegue" id="g6u-c0-CPD"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -250,7 +250,7 @@
                                 <items>
                                     <barButtonItem title="Back to Quizzes" id="bYX-Sc-ouX">
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="njy-PO-eDV"/>
+                                            <segue destination="BYZ-38-t0r" kind="show" identifier="backSegue" id="njy-PO-eDV"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -283,7 +283,7 @@
                                 <rect key="frame" x="289" y="441" width="37" height="30"/>
                                 <state key="normal" title="Done"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="22s-3x-5Am"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="backSegue" id="22s-3x-5Am"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -316,7 +316,7 @@
                                 <items>
                                     <barButtonItem title="Back to Quizzes" id="t5U-uS-EoY">
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" identifier="quizListSegue" id="ZIS-6D-YQc"/>
+                                            <segue destination="BYZ-38-t0r" kind="show" identifier="backSegue" id="ZIS-6D-YQc"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -397,6 +397,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="iBB-7Q-Ig7"/>
-        <segue reference="22s-3x-5Am"/>
+        <segue reference="ZIS-6D-YQc"/>
     </inferredMetricsTieBreakers>
 </document>
