@@ -73,7 +73,7 @@ class DataModel
                 do{
                     var quizInfo : [CategoryCell] = []
                     let json = try NSJSONSerialization.JSONObjectWithData(data!, options:.AllowFragments)
-                    for(var i = 0; i < 3; i += 1)
+                    for(var i = 0; i < json.count!; i += 1)
                     {
                         var questionArray : [Question] = []
                         if let quiz = json[i] as? [String : AnyObject]

@@ -13,11 +13,29 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var categoriesTableView: UITableView!
     var data : DataModel? = nil
     
+    var textField : UITextField? = nil
+    
+    func configurationTextField(textField: UITextField!)
+    {
+        self.textField = textField!
+        self.textField!.placeholder = "url"
+    }
     
     @IBAction func settingsClicked(sender: UIBarButtonItem) {
-        let alertController = UIAlertController(title: "Settings go here", message: "", preferredStyle: .Alert);
-        let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil);
+        let alertController = UIAlertController(title: "Enter Url", message: "Enter the url to load quiz from", preferredStyle: .Alert);
+        alertController.addTextFieldWithConfigurationHandler(configurationTextField)
+        let defaultAction = UIAlertAction(title: "OK", style: .Default, handler:{ (UIAlertAction)in
+            self.data!.populateQuizData(self.textField!.text!) {(quiz, error) -> () in
+                if(quiz != nil)
+                {
+                    self.data!.quizCells = quiz!
+                    self.categoriesTableView!.reloadData()
+                }
+            }
+        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler : nil)
         alertController.addAction(defaultAction);
+        alertController.addAction(cancelAction);
         
         presentViewController(alertController, animated: true, completion: nil);
     }
@@ -56,7 +74,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if(self.data!.quizCells.count == 0)
         {
-            data!.populateQuizData("http://tednewardsandbox.site44.com/questions.json") {(quiz, error) -> () in
+            self.data!.populateQuizData("http://tednewardsandbox.site44.com/questions.json") {(quiz, error) -> () in
                 if(quiz != nil)
                 {
                     self.data!.quizCells = quiz!
